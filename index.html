@@ -4,7 +4,247 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WPF项目展示网站</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* CSS样式开始 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden; /* 防止滚动条影响布局 */
+            background-image: url('fallbackground.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+
+        /* 背景透明层，使背景图更加柔和 */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.7); /* 70%透明度的白色覆盖层 */
+            z-index: -1;
+        }
+
+        /* 第一行：导航栏 - 占屏幕高度的1/4 */
+        .navbar {
+            height: 25%; /* 4分之1高度 */
+            background-color: rgba(51, 51, 51, 0.85); /* 半透明背景 */
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+        }
+
+        .tab-button {
+            background-color: rgba(85, 85, 85, 0.9);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .tab-button.active {
+            background-color: rgba(0, 123, 255, 0.9);
+        }
+
+        .tab-button:hover {
+            background-color: rgba(102, 102, 102, 0.9);
+        }
+
+        .language-switcher {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .language-label {
+            font-size: 14px;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        /* 第二行：通知栏 - 占屏幕高度的1/8 */
+        .notification-bar {
+            height: 12.5%; /* 8分之1高度 */
+            background-color: rgba(240, 240, 240, 0.85); /* 半透明背景 */
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .notification-text {
+            white-space: nowrap;
+            animation: scrollNotification 20s linear infinite;
+            font-size: 14px;
+            color: #333;
+        }
+
+        @keyframes scrollNotification {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        /* 第三行：主内容区 - 占屏幕高度的1/2 */
+        .main-content {
+            height: 50%; /* 4分之2高度 */
+            padding: 20px;
+            overflow-y: auto;
+            background-color: rgba(255, 255, 255, 0.85); /* 半透明背景 */
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .content-section h2 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .content-section p {
+            line-height: 1.6;
+            color: #666;
+        }
+
+        /* 最后一行预留区域 */
+        .footer-placeholder {
+            height: 12.5%; /* 8分之1高度 - 与通知栏相同 */
+            background-color: rgba(224, 224, 224, 0.85); /* 半透明背景 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                height: 30%;
+                padding: 10px;
+            }
+            
+            .nav-tabs {
+                width: 100%;
+                justify-content: space-around;
+                flex-wrap: wrap;
+            }
+            
+            .tab-button {
+                flex: 1;
+                min-width: 30%;
+                padding: 8px 5px;
+                font-size: 12px;
+            }
+            
+            .language-switcher {
+                margin-top: 10px;
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .notification-bar {
+                height: 8%;
+                font-size: 12px;
+                padding: 0 10px;
+            }
+            
+            .main-content {
+                height: 54%;
+            }
+            
+            .footer-placeholder {
+                height: 8%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .tab-button {
+                min-width: 45%;
+                margin-bottom: 5px;
+            }
+            
+            .notification-text {
+                font-size: 12px;
+            }
+        }
+        /* CSS样式结束 */
+    </style>
 </head>
 <body>
     <!-- 第一行：导航栏 - 占屏幕高度的1/4 -->
@@ -112,6 +352,180 @@
         <span id="footer-text">此区域预留，等待后续开发...</span>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        // JavaScript交互功能开始
+        
+        // 获取DOM元素
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const contentSections = document.querySelectorAll('.content-section');
+        const languageToggle = document.getElementById('languageToggle');
+        const langLabel = document.getElementById('langLabel');
+
+        // 标签页切换功能
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // 移除所有按钮的active类
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                // 添加active类到当前点击的按钮
+                button.classList.add('active');
+                
+                // 获取当前点击的标签页ID
+                const tabId = button.getAttribute('data-tab');
+                
+                // 隐藏所有内容区域
+                contentSections.forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // 显示对应的内容区域
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // 语言切换功能
+        languageToggle.addEventListener('change', function() {
+            if (this.checked) {
+                // 切换到英文
+                switchLanguage('en');
+                langLabel.textContent = 'EN';
+            } else {
+                // 切换到中文
+                switchLanguage('zh');
+                langLabel.textContent = '中文';
+            }
+        });
+
+        // 语言切换函数
+        function switchLanguage(lang) {
+            // 定义中英文对照文本
+            const texts = {
+                'home-title': {
+                    zh: '欢迎来到WPF项目展示网站',
+                    en: 'Welcome to WPF Project Showcase Website'
+                },
+                'home-desc': {
+                    zh: '这里是展示各种WPF项目的平台。您可以浏览我们的大型项目、自定义控件、实用小工具以及其他相关项目。',
+                    en: 'This is a platform showcasing various WPF projects. You can browse our large projects, custom controls, utility tools, and other related projects.'
+                },
+                'home-features': {
+                    zh: '特色功能：',
+                    en: 'Featured Functions:'
+                },
+                'home-list': {
+                    zh: ['丰富的WPF项目资源', '高质量的自定义控件', '实用的小工具集合', '持续的技术更新'],
+                    en: ['Rich WPF project resources', 'High-quality custom controls', 'Practical tool collections', 'Continuous technical updates']
+                },
+                'project-title': {
+                    zh: 'WPF大型项目',
+                    en: 'Large WPF Projects'
+                },
+                'project-desc': {
+                    zh: '这里展示了我们开发的各种大型WPF应用程序项目。',
+                    en: 'Here are various large WPF application projects we have developed.'
+                },
+                'project-details': {
+                    zh: '项目详情：',
+                    en: 'Project Details:'
+                },
+                'project-list': {
+                    zh: ['企业级管理系统', '数据可视化平台', '多媒体编辑器', '跨平台协作工具'],
+                    en: ['Enterprise Management System', 'Data Visualization Platform', 'Multimedia Editor', 'Cross-platform Collaboration Tool']
+                },
+                'controls-title': {
+                    zh: 'WPF自定义控件',
+                    en: 'WPF Custom Controls'
+                },
+                'controls-desc': {
+                    zh: '提供多种可复用的WPF自定义控件，提升开发效率。',
+                    en: 'Provides multiple reusable WPF custom controls to improve development efficiency.'
+                },
+                'controls-features': {
+                    zh: '控件特性：',
+                    en: 'Control Features:'
+                },
+                'controls-list': {
+                    zh: ['现代化UI设计', '高度可定制', '性能优化', '文档齐全'],
+                    en: ['Modern UI design', 'Highly customizable', 'Performance optimized', 'Well documented']
+                },
+                'tools-title': {
+                    zh: 'WPF小工具',
+                    en: 'WPF Utility Tools'
+                },
+                'tools-desc': {
+                    zh: '一系列实用的WPF小工具，解决日常开发中的常见问题。',
+                    en: 'A series of practical WPF utility tools to solve common problems in daily development.'
+                },
+                'tools-examples': {
+                    zh: '工具示例：',
+                    en: 'Tool Examples:'
+                },
+                'tools-list': {
+                    zh: ['颜色选择器', '日期时间控件', '文件管理器', '图表生成器'],
+                    en: ['Color Picker', 'Date Time Control', 'File Manager', 'Chart Generator']
+                },
+                'others-title': {
+                    zh: '其他',
+                    en: 'Others'
+                },
+                'others-desc': {
+                    zh: '其他相关的WPF资源和项目。',
+                    en: 'Other related WPF resources and projects.'
+                },
+                'others-content': {
+                    zh: '包括：',
+                    en: 'Includes:'
+                },
+                'others-list': {
+                    zh: ['学习教程', '技术文档', '社区支持', '开源项目'],
+                    en: ['Learning Tutorials', 'Technical Documentation', 'Community Support', 'Open Source Projects']
+                },
+                'footer-text': {
+                    zh: '此区域预留，等待后续开发...',
+                    en: 'This area is reserved for future development...'
+                }
+            };
+
+            // 更新页面文本内容
+            Object.keys(texts).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) {
+                    const textObj = texts[key];
+                    
+                    // 如果是列表项，需要特殊处理
+                    if (Array.isArray(textObj[lang])) {
+                        // 清空现有列表项
+                        element.innerHTML = '';
+                        
+                        // 添加新的列表项
+                        textObj[lang].forEach(item => {
+                            const li = document.createElement('li');
+                            li.textContent = item;
+                            element.appendChild(li);
+                        });
+                    } else {
+                        element.textContent = textObj[lang];
+                    }
+                }
+            });
+            
+            // 更新标签页按钮文字
+            const tabs = [
+                { selector: 'home', zh: '首页', en: 'Home' },
+                { selector: 'wpf-project', zh: 'WPF大型项目', en: 'WPF Large Projects' },
+                { selector: 'wpf-controls', zh: 'WPF自定义控件', en: 'WPF Custom Controls' },
+                { selector: 'wpf-tools', zh: 'WPF小工具', en: 'WPF Tools' },
+                { selector: 'others', zh: '其他', en: 'Others' }
+            ];
+            
+            tabs.forEach(tab => {
+                const button = document.querySelector(`.tab-button[data-tab="${tab.selector}"]`);
+                if (button) {
+                    button.textContent = lang === 'zh' ? tab.zh : tab.en;
+                }
+            });
+        }
+
+        // JavaScript交互功能结束
+    </script>
 </body>
 </html>
