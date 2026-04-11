@@ -3,10 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的网站</title>
+    <title>Welcom to WangP.personalpage</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>欢迎来到我的网站！</h1>
-    <p>这是一个基本的 HTML 页面。</p>
+    <!-- 第一行：导航栏 - 占屏幕高度的1/4 -->
+    <header class="navbar">
+        <!-- 导航标签页 -->
+        <div class="nav-tabs">
+            <button class="tab-button active" data-tab="home">首页</button>
+            <button class="tab-button" data-tab="wpf-project">WPF大型项目</button>
+            <button class="tab-button" data-tab="wpf-controls">WPF自定义控件</button>
+            <button class="tab-button" data-tab="wpf-tools">WPF小工具</button>
+            <button class="tab-button" data-tab="others">其他</button>
+        </div>
+        
+        <!-- 语言选择滑动按钮 -->
+        <div class="language-switcher">
+            <span class="language-label" id="langLabel">中文</span>
+            <label class="switch">
+                <input type="checkbox" id="languageToggle">
+                <span class="slider"></span>
+            </label>
+            <span class="language-label">English</span>
+        </div>
+    </header>
+
+    <!-- 第二行：通知栏 - 占屏幕高度的1/8 -->
+    <section class="notification-bar">
+        <div class="notification-text">
+            最新通知：我们发布了新的WPF控件库版本，支持更多自定义功能！ &nbsp;&nbsp;|&nbsp;&nbsp; 
+            重要更新：新增了多语言支持功能 &nbsp;&nbsp;|&nbsp;&nbsp; 
+            维护公告：系统将于本周五进行维护升级 &nbsp;&nbsp;|&nbsp;&nbsp; 
+            新功能预告：即将推出在线演示功能
+        </div>
+    </section>
+
+    <!-- 第三行：主内容区 - 占屏幕高度的1/2 -->
+    <main class="main-content">
+        <!-- 首页内容 -->
+        <section id="home" class="content-section active">
+            <h2 id="home-title">欢迎来到WPF项目展示网站</h2>
+            <p id="home-desc">这里是展示各种WPF项目的平台。您可以浏览我们的大型项目、自定义控件、实用小工具以及其他相关项目。</p>
+            <p id="home-features">特色功能：</p>
+            <ul id="home-list">
+                <li>丰富的WPF项目资源</li>
+                <li>高质量的自定义控件</li>
+                <li>实用的小工具集合</li>
+                <li>持续的技术更新</li>
+            </ul>
+        </section>
+
+        <!-- WPF大型项目内容 -->
+        <section id="wpf-project" class="content-section">
+            <h2 id="project-title">WPF大型项目</h2>
+            <p id="project-desc">这里展示了我们开发的各种大型WPF应用程序项目。</p>
+            <p id="project-details">项目详情：</p>
+            <ul id="project-list">
+                <li>企业级管理系统</li>
+                <li>数据可视化平台</li>
+                <li>多媒体编辑器</li>
+                <li>跨平台协作工具</li>
+            </ul>
+        </section>
+
+        <!-- WPF自定义控件内容 -->
+        <section id="wpf-controls" class="content-section">
+            <h2 id="controls-title">WPF自定义控件</h2>
+            <p id="controls-desc">提供多种可复用的WPF自定义控件，提升开发效率。</p>
+            <p id="controls-features">控件特性：</p>
+            <ul id="controls-list">
+                <li>现代化UI设计</li>
+                <li>高度可定制</li>
+                <li>性能优化</li>
+                <li>文档齐全</li>
+            </ul>
+        </section>
+
+        <!-- WPF小工具内容 -->
+        <section id="wpf-tools" class="content-section">
+            <h2 id="tools-title">WPF小工具</h2>
+            <p id="tools-desc">一系列实用的WPF小工具，解决日常开发中的常见问题。</p>
+            <p id="tools-examples">工具示例：</p>
+            <ul id="tools-list">
+                <li>颜色选择器</li>
+                <li>日期时间控件</li>
+                <li>文件管理器</li>
+                <li>图表生成器</li>
+            </ul>
+        </section>
+
+        <!-- 其他内容 -->
+        <section id="others" class="content-section">
+            <h2 id="others-title">其他</h2>
+            <p id="others-desc">其他相关的WPF资源和项目。</p>
+            <p id="others-content">包括：</p>
+            <ul id="others-list">
+                <li>学习教程</li>
+                <li>技术文档</li>
+                <li>社区支持</li>
+                <li>开源项目</li>
+            </ul>
+        </section>
+    </main>
+
+    <!-- 最后一行预留区域 -->
+    <footer class="footer-placeholder">
+        <span id="footer-text">此区域预留，等待后续开发...</span>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
