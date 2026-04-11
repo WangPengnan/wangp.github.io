@@ -1,0 +1,222 @@
+/* CSS样式开始 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* 防止滚动条影响布局 */
+}
+
+/* 第一行：导航栏 - 占屏幕高度的1/4 */
+.navbar {
+    height: 25%; /* 4分之1高度 */
+    background-color: #333;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    position: relative;
+}
+
+.nav-tabs {
+    display: flex;
+    gap: 10px;
+}
+
+.tab-button {
+    background-color: #555;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.tab-button.active {
+    background-color: #007BFF;
+}
+
+.tab-button:hover {
+    background-color: #666;
+}
+
+.language-switcher {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.language-label {
+    font-size: 14px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* 第二行：通知栏 - 占屏幕高度的1/8 */
+.notification-bar {
+    height: 12.5%; /* 8分之1高度 */
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    overflow: hidden;
+    position: relative;
+}
+
+.notification-text {
+    white-space: nowrap;
+    animation: scrollNotification 20s linear infinite;
+    font-size: 14px;
+    color: #333;
+}
+
+@keyframes scrollNotification {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+/* 第三行：主内容区 - 占屏幕高度的1/2 */
+.main-content {
+    height: 50%; /* 4分之2高度 */
+    padding: 20px;
+    overflow-y: auto;
+    background-color: #fff;
+}
+
+.content-section {
+    display: none;
+}
+
+.content-section.active {
+    display: block;
+}
+
+.content-section h2 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.content-section p {
+    line-height: 1.6;
+    color: #666;
+}
+
+/* 最后一行预留区域 */
+.footer-placeholder {
+    height: 12.5%; /* 8分之1高度 - 与通知栏相同 */
+    background-color: #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    font-style: italic;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        height: 30%;
+        padding: 10px;
+    }
+    
+    .nav-tabs {
+        width: 100%;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+    
+    .tab-button {
+        flex: 1;
+        min-width: 30%;
+        padding: 8px 5px;
+        font-size: 12px;
+    }
+    
+    .language-switcher {
+        margin-top: 10px;
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .notification-bar {
+        height: 8%;
+        font-size: 12px;
+        padding: 0 10px;
+    }
+    
+    .main-content {
+        height: 54%;
+    }
+    
+    .footer-placeholder {
+        height: 8%;
+    }
+}
+
+@media (max-width: 480px) {
+    .tab-button {
+        min-width: 45%;
+        margin-bottom: 5px;
+    }
+    
+    .notification-text {
+        font-size: 12px;
+    }
+}
+/* CSS样式结束 */
